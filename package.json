@@ -16,7 +16,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/humanlayer/opencode-orchestration.git"
+		"url": "https://github.com/BNasraoui/opencode-orchestration.git"
 	},
 	"keywords": [
 		"opencode",
@@ -28,14 +28,13 @@
 		"cli"
 	],
 	"author": {
-		"name": "HumanLayer Team",
-		"email": "team@humanlayer.ai",
-		"url": "https://humanlayer.ai"
+		"name": "Brahim Nasraoui",
+		"url": "https://github.com/BNasraoui"
 	},
 	"license": "MIT",
-	"homepage": "https://github.com/humanlayer/opencode-orchestration#readme",
+	"homepage": "https://github.com/BNasraoui/opencode-orchestration#readme",
 	"bugs": {
-		"url": "https://github.com/humanlayer/opencode-orchestration/issues"
+		"url": "https://github.com/BNasraoui/opencode-orchestration/issues"
 	},
 	"engines": {
 		"opencode": ">=1.0.0"
