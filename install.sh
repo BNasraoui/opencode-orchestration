@@ -87,8 +87,8 @@ install_files() {
         log_success "Configuration templates installed"
     fi
     
-    # Install base configuration if it doesn't exist
-    if [[ -f "$PROJECT_DIR/.opencode/opencode.json" ]] && [[ ! -f "$INSTALL_DIR/opencode.json" ]]; then
+    # Install base configuration (always overwrite to fix config errors)
+    if [[ -f "$PROJECT_DIR/.opencode/opencode.json" ]]; then
         cp -v "$PROJECT_DIR/.opencode/opencode.json" "$INSTALL_DIR/" || {
             log_error "Failed to copy base configuration"
             exit 1
