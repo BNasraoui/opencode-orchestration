@@ -1,19 +1,56 @@
 {
 	"sync": {
+		"method": "git",
 		"commands": ["plan.md", "implement.md", "research.md", "validate.md"],
 		"agents": ["analyzer.md", "locator.md", "pattern-finder.md", "researcher.md"],
 		"config": ["personal.json"],
-		"exclude": ["work.json", "team.json", "*.local.json"]
+		"exclude": ["work.json", "team.json", "*.local.json"],
+		"cloud_provider": "",
+		"cloud_path": "",
+		"alternatives": ["dropbox", "onedrive", "google-drive"]
 	},
 	"remotes": {
 		"github": {
-			"url": "git@github.com:yourusername/opencode-orchestration.git",
+			"url": "https://github.com/BNasraoui/opencode-orchestration.git",
 			"branch": "main"
 		}
+	},
+	"cloud": {
+		"dropbox": {
+			"path": "~/Dropbox/Apps/OpenCode",
+			"auto_sync": true,
+			"conflict_resolution": "latest"
+		},
+		"onedrive": {
+			"path": "~/OneDrive/OpenCode",
+			"auto_sync": true,
+			"conflict_resolution": "latest"
+		},
+		"google-drive": {
+			"path": "~/Google Drive/OpenCode",
+			"auto_sync": true,
+			"conflict_resolution": "latest"
+		},
+		"custom": {
+			"path": "",
+			"auto_sync": false,
+			"conflict_resolution": "manual"
+		}
+	},
+	"conflict_resolution": {
+		"strategy": "prompt",
+		"backup_conflicts": true,
+		"merge_tool": "opencode"
 	},
 	"backup": {
 		"enabled": true,
 		"retention_days": 30,
 		"location": "~/.opencode-backups"
+	},
+	"performance": {
+		"max_file_size": "10MB",
+		"exclude_patterns": ["*.log", "*.tmp", "node_modules/", ".git/"],
+		"compression": true,
+		"parallel_sync": true
 	}
 }

@@ -69,6 +69,9 @@ load_sync_config() {
         SYNC_AGENTS=("analyzer.md" "locator.md" "pattern-finder.md" "researcher.md")
         SYNC_CONFIG=("personal.json")
         SYNC_EXCLUDE=("work.json" "team.json" "*.local.json")
+        SYNC_METHOD="git"
+        CLOUD_PROVIDER=""
+        CLOUD_PATH=""
         return
     fi
     
@@ -80,15 +83,21 @@ load_sync_config() {
         SYNC_AGENTS=($(jq -r '.sync.agents[]' "$sync_config_file" 2>/dev/null || echo ""))
         SYNC_CONFIG=($(jq -r '.sync.config[]' "$sync_config_file" 2>/dev/null || echo ""))
         SYNC_EXCLUDE=($(jq -r '.sync.exclude[]' "$sync_config_file" 2>/dev/null || echo ""))
+        SYNC_METHOD=$(jq -r '.sync.method // "git"' "$sync_config_file" 2>/dev/null || echo "git")
+        CLOUD_PROVIDER=$(jq -r '.sync.cloud_provider // ""' "$sync_config_file" 2>/dev/null || echo "")
+        CLOUD_PATH=$(jq -r '.sync.cloud_path // ""' "$sync_config_file" 2>/dev/null || echo "")
     else
         log_warning "jq not found, using default sync configuration"
         SYNC_COMMANDS=("plan.md" "implement.md" "research.md" "validate.md")
         SYNC_AGENTS=("analyzer.md" "locator.md" "pattern-finder.md" "researcher.md")
         SYNC_CONFIG=("personal.json")
         SYNC_EXCLUDE=("work.json" "team.json" "*.local.json")
+        SYNC_METHOD="git"
+        CLOUD_PROVIDER=""
+        CLOUD_PATH=""
     fi
     
-    log_success "Sync configuration loaded"
+    log_success "Sync configuration loaded (method: $SYNC_METHOD)"
 }
 
 # Create backup before sync
@@ -248,6 +257,155 @@ push_changes() {
     fi
 }
 
+# Cloud storage sync functions
+sync_cloud_dropbox() {
+    local dropbox_path="${CLOUD_PATH:-$HOME/Dropbox/Apps/OpenCode}"
+    
+    log_info "Syncing with Dropbox: $dropbox_path"
+    
+    if [[ ! -d "$dropbox_path" ]]; then
+        log_warning "Dropbox directory not found: $dropbox_path"
+        log_info "Creating Dropbox directory..."
+        mkdir -p "$dropbox_path"
+    fi
+    
+    # Sync to Dropbox
+    rsync -av --delete "$OPencode_DIR/" "$dropbox_path/" || {
+        log_error "Failed to sync to Dropbox"
+        return 1
+    }
+    
+    log_success "Dropbox sync complete"
+}
+
+sync_cloud_onedrive() {
+    local onedrive_path="${CLOUD_PATH:-$HOME/OneDrive/OpenCode}"
+    
+    log_info "Syncing with OneDrive: $onedrive_path"
+    
+    if [[ ! -d "$onedrive_path" ]]; then
+        log_warning "OneDrive directory not found: $onedrive_path"
+        log_info "Creating OneDrive directory..."
+        mkdir -p "$onedrive_path"
+    fi
+    
+    # Sync to OneDrive
+    rsync -av --delete "$OPencode_DIR/" "$onedrive_path/" || {
+        log_error "Failed to sync to OneDrive"
+        return 1
+    }
+    
+    log_success "OneDrive sync complete"
+}
+
+sync_cloud_google_drive() {
+    local gdrive_path="${CLOUD_PATH:-$HOME/Google Drive/OpenCode}"
+    
+    log_info "Syncing with Google Drive: $gdrive_path"
+    
+    if [[ ! -d "$gdrive_path" ]]; then
+        log_warning "Google Drive directory not found: $gdrive_path"
+        log_info "Creating Google Drive directory..."
+        mkdir -p "$gdrive_path"
+    fi
+    
+    # Sync to Google Drive
+    rsync -av --delete "$OPencode_DIR/" "$gdrive_path/" || {
+        log_error "Failed to sync to Google Drive"
+        return 1
+    }
+    
+    log_success "Google Drive sync complete"
+}
+
+sync_cloud_custom() {
+    local custom_path="$CLOUD_PATH"
+    
+    if [[ -z "$custom_path" ]]; then
+        log_error "Custom cloud path not specified"
+        return 1
+    fi
+    
+    log_info "Syncing with custom cloud storage: $custom_path"
+    
+    if [[ ! -d "$custom_path" ]]; then
+        log_warning "Custom cloud directory not found: $custom_path"
+        log_info "Creating custom cloud directory..."
+        mkdir -p "$custom_path"
+    fi
+    
+    # Sync to custom location
+    rsync -av --delete "$OPencode_DIR/" "$custom_path/" || {
+        log_error "Failed to sync to custom cloud storage"
+        return 1
+    }
+    
+    log_success "Custom cloud sync complete"
+}
+
+# Cloud sync dispatcher
+sync_cloud() {
+    case "$CLOUD_PROVIDER" in
+        dropbox)
+            sync_cloud_dropbox
+            ;;
+        onedrive)
+            sync_cloud_onedrive
+            ;;
+        google-drive)
+            sync_cloud_google_drive
+            ;;
+        custom)
+            sync_cloud_custom
+            ;;
+        "")
+            log_warning "No cloud provider specified"
+            return 1
+            ;;
+        *)
+            log_error "Unknown cloud provider: $CLOUD_PROVIDER"
+            return 1
+            ;;
+    esac
+}
+
+# Pull from cloud storage
+pull_cloud() {
+    case "$CLOUD_PROVIDER" in
+        dropbox)
+            local dropbox_path="${CLOUD_PATH:-$HOME/Dropbox/Apps/OpenCode}"
+            if [[ -d "$dropbox_path" ]]; then
+                rsync -av --delete "$dropbox_path/" "$OPencode_DIR/"
+                log_success "Pulled from Dropbox"
+            fi
+            ;;
+        onedrive)
+            local onedrive_path="${CLOUD_PATH:-$HOME/OneDrive/OpenCode}"
+            if [[ -d "$onedrive_path" ]]; then
+                rsync -av --delete "$onedrive_path/" "$OPencode_DIR/"
+                log_success "Pulled from OneDrive"
+            fi
+            ;;
+        google-drive)
+            local gdrive_path="${CLOUD_PATH:-$HOME/Google Drive/OpenCode}"
+            if [[ -d "$gdrive_path" ]]; then
+                rsync -av --delete "$gdrive_path/" "$OPencode_DIR/"
+                log_success "Pulled from Google Drive"
+            fi
+            ;;
+        custom)
+            local custom_path="$CLOUD_PATH"
+            if [[ -n "$custom_path" && -d "$custom_path" ]]; then
+                rsync -av --delete "$custom_path/" "$OPencode_DIR/"
+                log_success "Pulled from custom cloud storage"
+            fi
+            ;;
+        *)
+            log_warning "Cannot pull from unknown cloud provider: $CLOUD_PROVIDER"
+            ;;
+    esac
+}
+
 # Restart OpenCode if running
 restart_opencode() {
     log_info "Restarting OpenCode to reload configuration..."
@@ -286,7 +444,6 @@ main() {
     echo "============================"
     echo
     
-    check_sync_repo
     check_opencode_config
     load_sync_config
     
@@ -294,11 +451,38 @@ main() {
         create_backup
     fi
     
-    pull_changes
-    sync_commands
-    sync_agents
-    sync_config
-    push_changes
+    case "$SYNC_METHOD" in
+        git)
+            check_sync_repo
+            pull_changes
+            sync_commands
+            sync_agents
+            sync_config
+            push_changes
+            ;;
+        cloud)
+            pull_cloud
+            sync_commands
+            sync_agents
+            sync_config
+            sync_cloud
+            ;;
+        hybrid)
+            check_sync_repo
+            pull_changes
+            pull_cloud
+            sync_commands
+            sync_agents
+            sync_config
+            push_changes
+            sync_cloud
+            ;;
+        *)
+            log_error "Unknown sync method: $SYNC_METHOD"
+            exit 1
+            ;;
+    esac
+    
     restart_opencode
     show_summary
 }
@@ -314,10 +498,23 @@ case "${1:-}" in
         echo "  --no-backup      Skip creating backup"
         echo "  --push-only      Only push local changes"
         echo "  --pull-only      Only pull remote changes"
+        echo "  --cloud-only     Only sync with cloud storage"
+        echo "  --method METHOD  Force sync method (git/cloud/hybrid)"
         echo
         echo "Environment variables:"
         echo "  OPencode_SYNC_REPO     Override sync repository path"
         echo "  OPencode_CONFIG_DIR    Override OpenCode config directory"
+        echo
+        echo "Sync methods:"
+        echo "  git       - Git-based synchronization (default)"
+        echo "  cloud     - Cloud storage synchronization"
+        echo "  hybrid    - Both Git and cloud synchronization"
+        echo
+        echo "Cloud providers:"
+        echo "  dropbox     - Dropbox folder sync"
+        echo "  onedrive    - OneDrive folder sync"
+        echo "  google-drive - Google Drive folder sync"
+        echo "  custom      - Custom path sync"
         exit 0
         ;;
     --version)
@@ -339,6 +536,24 @@ case "${1:-}" in
         sync_config
         restart_opencode
         exit 0
+        ;;
+    --cloud-only)
+        check_opencode_config
+        load_sync_config
+        if [[ "${2:-}" != "--no-backup" ]]; then
+            create_backup
+        fi
+        pull_cloud
+        sync_commands
+        sync_agents
+        sync_config
+        sync_cloud
+        restart_opencode
+        exit 0
+        ;;
+    --method)
+        export SYNC_METHOD="$2"
+        main "$@"
         ;;
     *)
         main "$@"
