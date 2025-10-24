@@ -1,12 +1,1 @@
-{
-	"preferences": {
-		"default_agent": "build",
-		"auto_save": true,
-		"theme": "dark"
-	},
-	"sync": {
-		"enabled": false,
-		"remote": "github",
-		"auto_sync": false
-	}
-}
+{}
