@@ -1,0 +1,73 @@
+{
+	"name": "opencode-orchestration",
+	"version": "1.0.0",
+	"description": "HumanLayer orchestration workflows for OpenCode",
+	"main": "install.sh",
+	"scripts": {
+		"install": "./install.sh",
+		"uninstall": "./uninstall.sh",
+		"update": "./scripts/update.sh",
+		"sync": "./scripts/sync-config.sh",
+		"backup": "./scripts/backup.sh",
+		"test": "echo \"No tests specified yet\" && exit 0",
+		"validate": "opencode config validate || echo \"OpenCode not available for validation\"",
+		"clean": "rm -rf ~/.opencode-backup-*",
+		"help": "echo \"Available scripts: install, uninstall, update, sync, backup\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/humanlayer/opencode-orchestration.git"
+	},
+	"keywords": [
+		"opencode",
+		"orchestration",
+		"workflow",
+		"automation",
+		"ai",
+		"development",
+		"cli"
+	],
+	"author": {
+		"name": "HumanLayer Team",
+		"email": "team@humanlayer.ai",
+		"url": "https://humanlayer.ai"
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/humanlayer/opencode-orchestration#readme",
+	"bugs": {
+		"url": "https://github.com/humanlayer/opencode-orchestration/issues"
+	},
+	"engines": {
+		"opencode": ">=1.0.0"
+	},
+	"config": {
+		"opencode_dir": "~/.config/opencode",
+		"backup_dir": "~/.opencode-backups",
+		"sync_repo": "~/.opencode-orchestration"
+	},
+	"files": [
+		".opencode/**/*",
+		"scripts/**/*",
+		"docs/**/*",
+		"install.sh",
+		"uninstall.sh",
+		"README.md",
+		"LICENSE",
+		"package.json"
+	],
+	"directories": {
+		"doc": "docs",
+		"config": ".opencode/config",
+		"script": "scripts"
+	},
+	"bin": {
+		"opencode-orchestration": "./install.sh"
+	},
+	"man": [
+		"./docs/man/"
+	],
+	"preferGlobal": true,
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	}
+}

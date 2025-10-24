@@ -1,0 +1,40 @@
+{
+  "preferences": {
+    "default_agent": "build",
+    "auto_save": true,
+    "theme": "light",
+    "editor": {
+      "tab_size": 4,
+      "word_wrap": false,
+      "line_numbers": true
+    }
+  },
+  "workflow": {
+    "auto_create_plans": false,
+    "require_validation": true,
+    "parallel_research": false,
+    "default_model": "claude-3-5-sonnet"
+  },
+  "sync": {
+    "enabled": false,
+    "remote": "github",
+    "auto_sync": false,
+    "conflict_resolution": "manual"
+  },
+  "notifications": {
+    "enabled": true,
+    "types": ["completion", "error"],
+    "sound": true
+  },
+  "permissions": {
+    "auto_approve_readonly": false,
+    "prompt_for_edits": true,
+    "remember_choices": false
+  },
+  "work_specific": {
+    "company": "Example Corp",
+    "project_prefix": "PROJ",
+    "approval_required": true,
+    "log_hours": true
+  }
+}

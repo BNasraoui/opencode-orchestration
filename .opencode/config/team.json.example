@@ -1,0 +1,43 @@
+{
+  "preferences": {
+    "default_agent": "plan",
+    "auto_save": true,
+    "theme": "auto",
+    "editor": {
+      "tab_size": 2,
+      "word_wrap": true,
+      "line_numbers": true
+    }
+  },
+  "workflow": {
+    "auto_create_plans": true,
+    "require_validation": true,
+    "parallel_research": true,
+    "default_model": "auto",
+    "team_review": true
+  },
+  "sync": {
+    "enabled": true,
+    "remote": "github",
+    "auto_sync": true,
+    "conflict_resolution": "team_vote"
+  },
+  "notifications": {
+    "enabled": true,
+    "types": ["completion", "error", "permission_request", "team_update"],
+    "sound": true,
+    "email": true
+  },
+  "permissions": {
+    "auto_approve_readonly": true,
+    "prompt_for_edits": true,
+    "remember_choices": true,
+    "team_approvals": true
+  },
+  "team_specific": {
+    "members": ["user1@example.com", "user2@example.com"],
+    "reviewers": ["lead@example.com"],
+    "standup_time": "09:00",
+    "timezone": "America/New_York"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "preferences": {
+    "default_agent": "build",
+    "auto_save": true,
+    "theme": "dark",
+    "editor": {
+      "tab_size": 2,
+      "word_wrap": true,
+      "line_numbers": true
+    }
+  },
+  "workflow": {
+    "auto_create_plans": true,
+    "require_validation": true,
+    "parallel_research": true,
+    "default_model": "auto"
+  },
+  "sync": {
+    "enabled": false,
+    "remote": "github",
+    "auto_sync": false,
+    "conflict_resolution": "manual"
+  },
+  "notifications": {
+    "enabled": true,
+    "types": ["completion", "error", "permission_request"],
+    "sound": false
+  },
+  "permissions": {
+    "auto_approve_readonly": true,
+    "prompt_for_edits": true,
+    "remember_choices": true
+  }
+}

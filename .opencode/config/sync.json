@@ -1,0 +1,19 @@
+{
+	"sync": {
+		"commands": ["plan.md", "implement.md", "research.md", "validate.md"],
+		"agents": ["analyzer.md", "locator.md", "pattern-finder.md", "researcher.md"],
+		"config": ["personal.json"],
+		"exclude": ["work.json", "team.json", "*.local.json"]
+	},
+	"remotes": {
+		"github": {
+			"url": "git@github.com:yourusername/opencode-orchestration.git",
+			"branch": "main"
+		}
+	},
+	"backup": {
+		"enabled": true,
+		"retention_days": 30,
+		"location": "~/.opencode-backups"
+	}
+}

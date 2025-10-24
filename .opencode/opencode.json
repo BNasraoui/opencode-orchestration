@@ -1,0 +1,69 @@
+{
+	"name": "OpenCode Orchestration",
+	"version": "1.0.0",
+	"description": "HumanLayer orchestration workflows for OpenCode",
+	"author": "HumanLayer Team",
+	"homepage": "https://github.com/humanlayer/opencode-orchestration",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/humanlayer/opencode-orchestration.git"
+	},
+	"keywords": ["opencode", "orchestration", "workflow", "automation"],
+	"license": "MIT",
+	"engines": {
+		"opencode": ">=1.0.0"
+	},
+	"config_schema": {
+		"preferences": {
+			"type": "object",
+			"properties": {
+				"default_agent": {
+					"type": "string",
+					"enum": ["plan", "build", "test", "general"],
+					"default": "build"
+				},
+				"auto_save": {
+					"type": "boolean",
+					"default": true
+				},
+				"theme": {
+					"type": "string",
+					"enum": ["dark", "light", "auto"],
+					"default": "dark"
+				}
+			}
+		},
+		"sync": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean",
+					"default": false
+				},
+				"remote": {
+					"type": "string",
+					"default": "github"
+				},
+				"auto_sync": {
+					"type": "boolean",
+					"default": false
+				}
+			}
+		}
+	},
+	"commands": [
+		"plan",
+		"implement",
+		"research",
+		"validate",
+		"research-plan",
+		"execute-ticket",
+		"pr",
+		"dev-env",
+		"setup-review",
+		"handoff",
+		"resume",
+		"ticket"
+	],
+	"agents": ["analyzer", "locator", "pattern-finder", "researcher"]
+}
