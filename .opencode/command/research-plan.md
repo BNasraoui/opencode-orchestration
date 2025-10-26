@@ -29,7 +29,7 @@ I'll help you research and create a comprehensive implementation plan. Please pr
 Example usage:
 - @research-plan ENG-1478
 - @research-plan "add user authentication"
-- @research-plan thoughts/shared/research/auth-flow.md
+- @research-plan research/auth-flow.md
 ```
 
 2. **Parse the input**:
@@ -70,7 +70,7 @@ Example usage:
    - Use OpenCode-specific features (undo/redo, git integration)
 
 3. **Write plan to appropriate location**:
-   - Format: `thoughts/shared/plans/YYYY-MM-DD-ENG-XXXX-description.md`
+   - Format: `docs/plans/YYYY-MM-DD-ENG-XXXX-description.md`
    - Use today's date and ticket number if available
    - Include comprehensive research findings in the plan
 
@@ -80,7 +80,7 @@ Example usage:
 
    ```
    I've researched [topic/ticket] and created a comprehensive implementation plan at:
-   `thoughts/shared/plans/YYYY-MM-DD-ENG-XXXX-description.md`
+   `docs/plans/YYYY-MM-DD-ENG-XXXX-description.md`
 
    ## Research Summary:
    - [Key finding about current state]
@@ -174,7 +174,7 @@ Assistant: I'll research ENG-1478 and create a comprehensive implementation plan
 [Spawns parallel research tasks]
 
 Research complete. I've created implementation plan at:
-`thoughts/shared/plans/2025-01-24-ENG-1478-parent-child-tracking.md`
+`docs/plans/2025-01-24-ENG-1478-parent-child-tracking.md`
 
 Ready to proceed with @implement?
 ```
@@ -187,7 +187,7 @@ Assistant: I'll research "add smileys to markdowns" and create a comprehensive i
 [Spawns parallel research tasks]
 
 Research complete. I've created implementation plan at:
-`thoughts/shared/plans/2025-01-24-add-smileys-to-markdowns.md`
+`docs/plans/2025-01-24-add-smileys-to-markdowns.md`
 
 Ready to proceed with @implement?
 ```

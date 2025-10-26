@@ -35,7 +35,7 @@ When this command is invoked:
 
 1. **Locate and read the thoughts document**:
    - If given a path, read the document directly
-   - If given a topic/keyword, search thoughts/ directory using Grep to find relevant documents
+   - If given a topic/keyword, search docs/ directory using Grep to find relevant documents
    - If multiple matches found, show list and ask user to select
    - Create a TodoWrite list to track: Read document → Analyze content → Draft ticket → Get user input → Create ticket
 
@@ -71,7 +71,7 @@ When this command is invoked:
    [Any specific technical approach or steps outlined]
 
    ## References
-   - Source: `thoughts/[path/to/document.md]`
+   - Source: `docs/[path/to/document.md]`
    - Related code: [any file:line references]
    - Parent ticket: [if applicable]
 
@@ -116,8 +116,8 @@ When this command is invoked:
 
    Files updated:
 
-   - `hld/webhooks/handler.go` (analyzed with @analyzer)
-   - `thoughts/shared/rate_limit_analysis.md`
+   - `backend/webhooks/handler.go` (analyzed with @analyzer)
+   - `docs/shared/rate_limit_analysis.md`
    ```
 
 4. **Update ticket using available tools**:
@@ -241,7 +241,7 @@ Apply labels based on ticket content:
 ### Creating a Ticket from Thoughts:
 
 ```
-User: @ticket thoughts/shared/research/auth-flow.md
+User: @ticket research/auth-flow.md
 
 Assistant: I'll create a ticket from your thoughts document.
 
@@ -279,7 +279,7 @@ Key insight: The previous implementation wasn't checking the 'alg' header,
 causing validation failures for tokens with different algorithms.
 
 Files updated:
-- `hld/auth/jwt.go:45-67`"
+- `backend/auth/jwt.go:45-67`"
 ```
 
 ## Notes

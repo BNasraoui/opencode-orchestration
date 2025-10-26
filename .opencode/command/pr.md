@@ -21,7 +21,7 @@ When this command is invoked:
    - If on main/master, ask user to switch to feature branch or specify PR number
 
 2. **Check for existing description**:
-   - Check if `thoughts/shared/prs/{number}_description.md` already exists
+   - Check if `docs/shared/prs/{number}_description.md` already exists
    - If it exists, read it and inform user you'll be updating it
    - Consider what has changed since the last description was written
 
@@ -30,7 +30,7 @@ When this command is invoked:
 ### Step 1: Template Discovery
 
 1. **Read PR description template**:
-   - First, check if `thoughts/shared/pr_description.md` exists
+   - First, check if `docs/pr_description.md` exists
    - If it doesn't exist, inform the user that their setup is incomplete
    - If no template exists, create a basic template structure
    - Read template carefully to understand all sections and requirements
@@ -93,12 +93,12 @@ When this command is invoked:
 ### Step 5: Documentation & Sync
 
 1. **Save and sync description**:
-   - Write the completed description to `thoughts/shared/prs/{number}_description.md`
+   - Write the completed description to `docs/shared/prs/{number}_description.md`
    - If thoughts sync is available, run appropriate sync command
    - Show the user the generated description
 
 2. **Update PR directly**:
-   - Update PR description: `!gh pr edit {number} --body-file thoughts/shared/prs/{number}_description.md`
+   - Update PR description: `!gh pr edit {number} --body-file docs/shared/prs/{number}_description.md`
    - Confirm the update was successful
    - If any verification steps remain unchecked, remind the user to complete them before merging
 
@@ -188,7 +188,7 @@ Found PR #1234: "Add user authentication system"
 [Reads template, gathers PR info, runs verification]
 
 Generated comprehensive PR description at:
-`thoughts/shared/prs/1234_description.md`
+`docs/shared/prs/1234_description.md`
 
 ✓ Automated verification passed:
 - [x] All tests pass: make test

@@ -26,7 +26,7 @@ I'll help you execute a complete implementation workflow. Please provide:
 
 Example usage:
 - @execute-ticket ENG-1478
-- @execute-ticket thoughts/shared/plans/2025-01-08-ENG-1478-feature.md
+- @execute-ticket docs/plans/2025-01-08-ENG-1478-feature.md
 - @execute-ticket "implement user authentication system"
 ```
 

@@ -1,5 +1,5 @@
 ---
-description: Implement technical plans from thoughts/shared/plans with verification
+description: Implement technical plans from docs/shared/plans with verification
 agent: build
 permissions:
   edit: allow
@@ -8,7 +8,7 @@ permissions:
 
 # Implement Plan
 
-You are tasked with implementing an approved technical plan from `thoughts/shared/plans/`. These plans contain phases with specific changes and success criteria.
+You are tasked with implementing an approved technical plan from `docs/plans/`. These plans contain phases with specific changes and success criteria.
 
 ## Getting Started
 
@@ -136,7 +136,7 @@ As the Build agent with full permissions:
 ## Example Workflow
 
 ```
-User: @implement thoughts/shared/plans/2025-01-08-feature-x.md
+User: @implement docs/plans/2025-01-08-feature-x.md
 
 Assistant: [Reads plan and all referenced files]
 
