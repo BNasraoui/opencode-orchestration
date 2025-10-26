@@ -2,7 +2,7 @@
 description: Find similar implementations, usage examples, or existing patterns that can be modeled after
 mode: subagent
 temperature: 0.2
-permission:
+permissions:
   edit: deny
   bash: deny
   read: allow

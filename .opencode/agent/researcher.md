@@ -2,7 +2,7 @@
 description: Deep dive research and analysis of technical topics and documentation
 mode: subagent
 temperature: 0.3
-permission:
+permissions:
   edit: deny
   bash: deny
   read: allow

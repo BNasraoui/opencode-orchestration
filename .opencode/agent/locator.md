@@ -2,7 +2,7 @@
 description: Locate files, directories, and components relevant to a feature or task
 mode: subagent
 temperature: 0.2
-permission:
+permissions:
   edit: deny
   bash: deny
   read: allow

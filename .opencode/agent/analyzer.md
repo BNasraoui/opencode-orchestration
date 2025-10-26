@@ -2,7 +2,7 @@
 description: Analyze code structure and implementation details
 mode: subagent
 temperature: 0.1
-permission:
+permissions:
   edit: deny
   bash: deny
   read: allow
